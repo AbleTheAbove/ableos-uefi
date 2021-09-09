@@ -11,7 +11,7 @@ log = { version = "0.4", default-features = false }
 uefi = { version="*", features = ["exts"] }
 uefi-services = "*"
 spin = "0.5.2"
-
+#rust-gpu = "0.1.0"
 [dependencies.lazy_static]
 features = ["spin_no_std"]
 version = "1.0"
