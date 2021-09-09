@@ -42,16 +42,19 @@ fn pre_main(_handle: Handle, mut system_table: SystemTable<Boot>) -> Status {
     debug_kstate();
 
     //
-    let x = system_table.runtime_services().get_time();
-    info!("{:?}", x.unwrap().unwrap().year());
+   //  let x = system_table.runtime_services().get_time();
+   //  info!("{:?}", x.unwrap().unwrap().year());
 
     // KMain should never return
-    kmain();
+    kmain(system_table.runtime_services());
 }
 
-fn kmain() -> ! {
+fn kmain(rt_services: &RuntimeServices) -> ! {
     test_alloc();
-    loop {}
+	//  rt_services;
+	 
+    loop {
+	 }
 }
 fn test_alloc() {
     let _x = vec!["hi"];
