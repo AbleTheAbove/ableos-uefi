@@ -1,11 +1,17 @@
 #![no_main]
 #![no_std]
 #![feature(abi_efiapi)]
-
+#![feature(alloc_error_handler)]
+#![feature(default_alloc_error_handler)]
 extern crate alloc;
 extern crate rlibc;
 
 mod kernel_state;
+//mod loader;
+// If using uefi then loader/uefi_loader
+// else loader/bios.rs
+#[cfg_attr(target_os = "linux", path = "loader/uefi_loader.rs")]
+#[cfg_attr(windows, path = "loader/bios.rs")]
 mod loader;
 
 use crate::{

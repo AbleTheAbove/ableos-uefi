@@ -12,6 +12,10 @@ uefi = { version="*", features = ["exts"] }
 uefi-services = "*"
 spin = "0.5.2"
 #rust-gpu = "0.1.0"
+
+
+bootloader = { version = "0.9.8", features = ["map_physical_memory"] }
+
 [dependencies.lazy_static]
 features = ["spin_no_std"]
 version = "1.0"
