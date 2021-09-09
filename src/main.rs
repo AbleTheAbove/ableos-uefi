@@ -11,8 +11,8 @@ mod kernel_state;
 // If using uefi then loader/uefi_loader
 // else loader/bios.rs
 
-#[cfg_attr(feature = "uefi", path = "loader/uefi_loader.rs")]
-#[cfg_attr(feature = "bios", path = "loader/bio.rs")]
+// #[path = "loader/bios.rs"]
+#[path = "loader/uefi_loader.rs"]
 mod loader;
 
 use crate::{
