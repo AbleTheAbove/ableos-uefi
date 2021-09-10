@@ -10,9 +10,8 @@ mod kernel_state;
 //mod loader;
 // If using uefi then loader/uefi_loader
 // else loader/bios.rs
-#[cfg_attr(target_os = "linux", path = "loader/uefi_loader.rs")]
-#[cfg_attr(windows, path = "loader/bios.rs")]
-mod loader;
+
+mod uefi_loader;
 
 use crate::{
     alloc::vec,
@@ -31,10 +30,6 @@ pub const RELEASE_TYPE: &str = "release";
 // Multimedia shell
 
 fn kmain(rt_services: &RuntimeServices) -> ! {
-    test_alloc();
 
     loop {}
-}
-fn test_alloc() {
-    let _x = vec!["hi"];
 }

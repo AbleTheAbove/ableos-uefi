@@ -33,7 +33,7 @@ pub struct KernelState {
     pub version: KernelVersion,
     /// This declares whether debug should be logged
     pub serial_log: bool,
-
+    /// Define the loader used by the kernel
     pub loader: Loader,
 }
 impl fmt::Display for KernelState {
