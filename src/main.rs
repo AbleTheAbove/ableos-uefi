@@ -13,6 +13,6 @@ use kernel_state::{debug_kstate, KERNEL_STATE};
 use log::info;
 pub mod util;
 
-fn kmain(rt_services: &RuntimeServices) -> ! {
+fn kmain() -> ! {
     loop {}
 }
