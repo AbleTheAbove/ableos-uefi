@@ -6,11 +6,11 @@
 extern crate alloc;
 extern crate rlibc;
 
+pub mod able_graphics;
 mod kernel_state;
 mod uefi_loader;
-
 use kernel_state::{debug_kstate, KERNEL_STATE};
-use log::info;
+pub use log::info;
 pub mod util;
 
 fn kmain() -> ! {
