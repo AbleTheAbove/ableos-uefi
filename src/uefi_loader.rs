@@ -1,10 +1,6 @@
 use uefi::{prelude::*, ResultExt};
 
-use crate::debug_kstate;
-use crate::info;
-use crate::kernel_state;
-use crate::kmain;
-use crate::KERNEL_STATE;
+use crate::{debug_kstate, info, kernel_state, kmain, KERNEL_STATE};
 
 #[entry]
 fn pre_main(_handle: Handle, mut system_table: SystemTable<Boot>) -> Status {
@@ -22,11 +18,15 @@ fn pre_main(_handle: Handle, mut system_table: SystemTable<Boot>) -> Status {
         };
         KERNEL_STATE.lock().loader.uefi = Some(uefi_info);
     }
-    debug_kstate();
 
     //
-    let x = system_table.runtime_services().get_time();
-    info!("{:?}", x.unwrap().unwrap().year());
+    let year = system_table
+        .runtime_services()
+        .get_time()
+        .unwrap()
+        .unwrap()
+        .year();
+    info!("Year for sanity: {:?}", year);
 
     // KMain should never return
     kmain();
