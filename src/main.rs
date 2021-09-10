@@ -13,11 +13,6 @@ use kernel_state::{debug_kstate, KERNEL_STATE};
 use log::info;
 pub mod util;
 
-fn kmain() -> ! {
+fn kmain(rt_services: &RuntimeServices) -> ! {
     loop {}
-}
-
-#[test]
-fn test_alloc() {
-    let _x = vec!["hi"];
 }

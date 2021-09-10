@@ -1,3 +1,4 @@
+use uefi::proto::console::gop::GraphicsOutput;
 use uefi::{prelude::*, ResultExt};
 
 use crate::{debug_kstate, info, kernel_state, kmain, KERNEL_STATE};
@@ -28,6 +29,24 @@ fn pre_main(_handle: Handle, mut system_table: SystemTable<Boot>) -> Status {
         .year();
     info!("Year for sanity: {:?}", year);
 
+    let a_bunch_of_handles = system_table
+        .boot_services()
+        .find_handles::<GraphicsOutput>()
+        .unwrap()
+        .unwrap();
+
+    for handle in a_bunch_of_handles {
+        info!["{:?}", handle];
+        let handle_protocols = system_table
+            .boot_services()
+            .protocols_per_handle(handle)
+            .unwrap()
+            .unwrap();
+        for protocol in handle_protocols.protocols() {
+            info!["{:?}", protocol];
+        }
+    }
+
     // KMain should never return
-    kmain();
+    kmain(&system_table.runtime_services());
 }
