@@ -11,9 +11,7 @@ mod kernel_state;
 // If using uefi then loader/uefi_loader
 // else loader/bios.rs
 
-// #[path = "loader/bios.rs"]
-#[path = "loader/uefi_loader.rs"]
-mod loader;
+mod uefi_loader;
 
 use crate::{
     alloc::vec,
@@ -31,10 +29,10 @@ pub const RELEASE_TYPE: &str = "release";
 // Multimedia shell
 
 fn kmain() -> ! {
-    test_alloc();
-
     loop {}
 }
+
+#[test]
 fn test_alloc() {
     let _x = vec!["hi"];
 }
