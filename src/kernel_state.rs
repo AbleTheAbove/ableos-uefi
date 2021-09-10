@@ -1,6 +1,5 @@
 use crate::info;
-use alloc::string::String;
-use alloc::string::ToString;
+use alloc::string::{String, ToString};
 use core::fmt;
 use lazy_static::lazy_static;
 /// TODO: owo what is this?
@@ -77,7 +76,7 @@ pub struct UEFI {
     pub minor: u16,
 }
 
-pub fn debug_kstate() {
+pub fn _debug_kstate() {
     info!("Kernel Version: {}", KERNEL_STATE.lock().version);
     info!("Kernel Logging: {:?}", KERNEL_STATE.lock().serial_log);
 }

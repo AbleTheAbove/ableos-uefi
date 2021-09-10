@@ -9,7 +9,7 @@ extern crate rlibc;
 pub mod able_graphics;
 mod kernel_state;
 mod uefi_loader;
-use kernel_state::{debug_kstate, KERNEL_STATE};
+use kernel_state::KERNEL_STATE;
 pub use log::info;
 pub mod util;
 
