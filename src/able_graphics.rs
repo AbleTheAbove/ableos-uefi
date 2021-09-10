@@ -11,14 +11,12 @@ pub const DEFAULT_RESOLUTION: Resolution = (1440, 900);
 
 pub type Point = (GCoord, GCoord);
 
-fn put_pixel(coords: Point, color: RGB) {}
-fn put_line(coords_start: Point, coords_end: Point, thickness: f32, color: RGB) {}
-fn put_rect(coords_start: Point, coords_end: Point, color: RGB) {}
-fn put_circle(coords: Point, radius: f32) {}
-fn paint_cursor(coords: Point) {}
+pub struct GOPHandle {}
 
-#[test]
-fn it_works() {
-    let result = 2 + 2;
-    assert_eq!(result, 4);
+impl GOPHandle {
+    pub fn put_pixel(coords: Point, color: RGB) {}
+    pub fn put_line(coords_start: Point, coords_end: Point, thickness: f32, color: RGB) {}
+    pub fn put_rect(coords_start: Point, coords_end: Point, color: RGB) {}
+    pub fn put_circle(coords: Point, radius: f32) {}
+    pub fn paint_cursor(coords: Point) {}
 }
