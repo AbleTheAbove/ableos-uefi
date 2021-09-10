@@ -1,18 +1,25 @@
 #![no_main]
 #![no_std]
 #![feature(abi_efiapi)]
-
+#![feature(alloc_error_handler)]
+#![feature(default_alloc_error_handler)]
 extern crate alloc;
 extern crate rlibc;
 
+mod kernel_state;
+//mod loader;
+// If using uefi then loader/uefi_loader
+// else loader/bios.rs
+#[cfg_attr(target_os = "linux", path = "loader/uefi_loader.rs")]
+#[cfg_attr(windows, path = "loader/bios.rs")]
+mod loader;
+
+use crate::{
+    alloc::vec,
+    kernel_state::{debug_kstate, KERNEL_STATE},
+};
 use log::info;
-use uefi::prelude::*;
-use uefi::ResultExt;
-
-use crate::alloc::vec;
-use crate::kernel_state::debug_kstate;
-
-use crate::kernel_state::KERNEL_STATE;
+use uefi::prelude::RuntimeServices;
 
 pub const KERNEL_VERSION: &str = env!("CARGO_PKG_VERSION");
 #[cfg(debug_assertions)]
@@ -22,39 +29,11 @@ pub const RELEASE_TYPE: &str = "debug";
 /// A constant to check if the kernel is in release mode
 pub const RELEASE_TYPE: &str = "release";
 // Multimedia shell
-mod kernel_state;
-#[entry]
-fn pre_main(_handle: Handle, mut system_table: SystemTable<Boot>) -> Status {
-    uefi_services::init(&mut system_table).unwrap_success();
-
-    // Print out the UEFI revision number
-    let _return = system_table.stdout().clear();
-    // add UEFI version to kstate
-    {
-        let rev = system_table.uefi_revision();
-        let (major, minor) = (rev.major(), rev.minor());
-        let uefi_info = kernel_state::UEFI {
-            major: major,
-            minor: minor,
-        };
-        KERNEL_STATE.lock().loader.uefi = Some(uefi_info);
-    }
-    debug_kstate();
-
-    //
-   //  let x = system_table.runtime_services().get_time();
-   //  info!("{:?}", x.unwrap().unwrap().year());
-
-    // KMain should never return
-    kmain(system_table.runtime_services());
-}
 
 fn kmain(rt_services: &RuntimeServices) -> ! {
     test_alloc();
-	//  rt_services;
-	 
-    loop {
-	 }
+
+    loop {}
 }
 fn test_alloc() {
     let _x = vec!["hi"];
